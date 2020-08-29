@@ -47,3 +47,35 @@ GET http://localhost:3000/grades/mediagrades/Trabalho Prático/04 - MongoDB
 GET http://localhost:3000/grades/biggergrades/Trabalho Prático/03 - React
 
 ###
+
+POST http://localhost:3000/accounts
+Content-Type: application/json
+
+{
+"agencia":7,
+"conta": 7,
+"name" : "Pedro",
+"balance": 10
+
+}
+###
+
+get http://localhost:3000/accounts
+
+###
+DELETE http://localhost:3000/accounts/5f4a13ea815468acf05aee71
+###
+
+get http://localhost:3000/accounts/5f499de30597a3443170fa27
+###
+
+PUT http://localhost:3000/accounts/5f4a17d7815468acf05aee72
+Content-Type: application/json
+
+{
+"agencia":7,
+"conta": 7,
+"name" : "Pedro",
+"balance": 40
+
+}

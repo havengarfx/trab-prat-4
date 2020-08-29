@@ -106,4 +106,57 @@ const deposit = async (req, res) => {
   }
 };
 
-export default { create, findAll, findOne, update, remove, deposit };
+const withdraw = async (req, res) => {
+  const agencia = req.params.agencia;
+  const conta = req.params.conta;
+  const name = req.params.name;
+  const withdraw = req.body.withdraw - 1;
+  // const newBalance=data.balance + deposit
+
+  try {
+    const data = await Account.findOneAndUpdate(
+      { agencia: agencia, conta: conta, name: name },
+      { $inc: { balance: -withdraw } },
+
+      {
+        new: true,
+      }
+    );
+
+    if (!data) {
+      res.send('Nao encontrada a conta: ' + conta);
+    } else {
+      res.send(data);
+    }
+  } catch (error) {
+    res.status(500).send('Erro ao atualizar a conta: ' + conta + ' ' + error);
+  }
+};
+
+const balance = async (req, res) => {
+  const agencia = req.params.agencia;
+  const conta = req.params.conta;
+
+  try {
+    const data = await Account.findOne({ agencia: agencia, conta: conta });
+
+    if (!data) {
+      res.send('Nao encontrato o podcast id: ' + id);
+    } else {
+      res.send(data.balance);
+    }
+  } catch (error) {
+    res.status(500).send('Erro ao buscar o podcast id: ' + id + ' ' + error);
+  }
+};
+
+export default {
+  create,
+  findAll,
+  findOne,
+  update,
+  remove,
+  deposit,
+  withdraw,
+  balance,
+};

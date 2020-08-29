@@ -80,7 +80,7 @@ Content-Type: application/json
 
 }
 ###
-PUT http://localhost:3000/accounts/7/7/Pedro
+PUT http://localhost:3000/accounts/deposit/7/7/Pedro
 Content-Type: application/json
 
 {
@@ -88,3 +88,15 @@ Content-Type: application/json
 "deposit": 40
 
 }
+###
+PUT http://localhost:3000/accounts/withdraw/7/7/Pedro
+Content-Type: application/json
+
+{
+
+"withdraw": 20
+
+}
+###
+
+get http://localhost:3000/accounts/balance/7/7

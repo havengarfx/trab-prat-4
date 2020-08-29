@@ -14,6 +14,10 @@ app.put('/:id', accountController.update);
 
 app.delete('/:id', accountController.remove);
 
-app.put('/:agencia/:conta/:name', accountController.deposit);
+app.put('/deposit/:agencia/:conta/:name', accountController.deposit);
+
+app.put('/withdraw/:agencia/:conta/:name', accountController.withdraw);
+
+app.get('/balance/:agencia/:conta', accountController.findOne);
 
 export { app as accountRouter };

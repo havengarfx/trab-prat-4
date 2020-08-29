@@ -79,4 +79,31 @@ const remove = async (req, res) => {
   }
 };
 
-export default { create, findAll, findOne, update, remove };
+const deposit = async (req, res) => {
+  const agencia = req.params.agencia;
+  const conta = req.params.conta;
+  const name = req.params.name;
+  const deposit = req.body.deposit;
+  // const newBalance=data.balance + deposit
+
+  try {
+    const data = await Account.findOneAndUpdate(
+      { agencia: agencia, conta: conta, name: name },
+      { $inc: { balance: deposit } },
+
+      {
+        new: true,
+      }
+    );
+
+    if (!data) {
+      res.send('Nao encontrada a conta: ' + conta);
+    } else {
+      res.send(data);
+    }
+  } catch (error) {
+    res.status(500).send('Erro ao atualizar a conta: ' + conta + ' ' + error);
+  }
+};
+
+export default { create, findAll, findOne, update, remove, deposit };

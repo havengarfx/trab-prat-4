@@ -79,3 +79,12 @@ Content-Type: application/json
 "balance": 40
 
 }
+###
+PUT http://localhost:3000/accounts/7/7/Pedro
+Content-Type: application/json
+
+{
+
+"deposit": 40
+
+}

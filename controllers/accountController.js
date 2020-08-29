@@ -139,14 +139,40 @@ const balance = async (req, res) => {
 
   try {
     const data = await Account.findOne({ agencia: agencia, conta: conta });
-
+    const balance = data.balance.toString();
     if (!data) {
-      res.send('Nao encontrato o podcast id: ' + id);
+      res.send('Nao encontrada a conta: ' + conta);
     } else {
-      res.send(data.balance);
+      res.send(balance);
     }
   } catch (error) {
-    res.status(500).send('Erro ao buscar o podcast id: ' + id + ' ' + error);
+    res
+      .status(500)
+      .send('Erro ao buscar o saldo da conta: ' + conta + ' ' + error);
+  }
+};
+
+const removeAndShowNumberTotalAccounts = async (req, res) => {
+  const agencia = req.params.agencia;
+  const conta = req.params.conta;
+
+  try {
+    const data = await Account.findOneAndRemove({
+      agencia: agencia,
+      conta: conta,
+    });
+    const dataAgency = await Account.find({ agencia: agencia });
+
+    if (!data) {
+      res.send('Nao encontrada a conta: ' + conta);
+    } else {
+      res.send(
+        'Conta excluida com sucesso. Total de contas ativas desta agencia: ' +
+          dataAgency.length
+      );
+    }
+  } catch (error) {
+    res.status(500).send('Erro ao excluir da conta: ' + conta + ' ' + error);
   }
 };
 
@@ -159,4 +185,5 @@ export default {
   deposit,
   withdraw,
   balance,
+  removeAndShowNumberTotalAccounts,
 };

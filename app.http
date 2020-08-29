@@ -100,3 +100,6 @@ Content-Type: application/json
 ###
 
 get http://localhost:3000/accounts/balance/7/7
+###
+
+DELETE http://localhost:3000/accounts/removeandshownumberaccounts/7/7

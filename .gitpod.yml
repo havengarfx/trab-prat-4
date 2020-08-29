@@ -8,8 +8,7 @@ ports:
 
 # List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  
-    - command: mongo "mongodb+srv://cluster0.aba5z.mongodb.net/bank" --username dbUser
+  - command: mongo "mongodb+srv://cluster0.aba5z.mongodb.net/bank" --username dbUser --password dbUserPass
 vscode:
   extensions:
     - naumovs.color-highlight@2.3.0:6nKORbxgnWjNaN6xACiaQQ==

@@ -80,32 +80,32 @@ Content-Type: application/json
 
 }
 ###
-PUT http://localhost:3000/accounts/deposit/7/7/Pedro
+PUT http://localhost:3000/accounts/deposit/10/1018
 Content-Type: application/json
 
 {
 
-"deposit": 200
+"deposit": 500
 
 }
 ###
-PUT http://localhost:3000/accounts/withdraw/7/7/Pedro
+PUT http://localhost:3000/accounts/withdraw/33/9110
 Content-Type: application/json
 
 {
 
-"withdraw": 20
+"withdraw": 235
 
 }
 ###
 
-get http://localhost:3000/accounts/balance/7/7
+get http://localhost:3000/accounts/balance/47/2213
 ###
 
-DELETE http://localhost:3000/accounts/removeandshownumberaccounts/7/8
+DELETE http://localhost:3000/accounts/removeandshownumberaccounts/33/9101
 
 ###
-PUT http://localhost:3000/accounts/transfer/7/8/50
+PUT http://localhost:3000/accounts/transfer/1017/9102/150
 Content-Type: application/json
 
 {
@@ -123,6 +123,7 @@ get http://localhost:3000/accounts/lessbalance/7
 get http://localhost:3000/accounts/morebalance/7
 
 ###
+
 PUT http://localhost:3000/accounts/transfertoprivate/99
 Content-Type: application/json
 

@@ -86,13 +86,13 @@ const remove = async (req, res) => {
 const deposit = async (req, res) => {
   const agencia = req.params.agencia;
   const conta = req.params.conta;
-  const name = req.params.name;
+  // const name = req.params.name;
   const deposit = req.body.deposit;
   // const newBalance=data.balance + deposit
 
   try {
     const data = await Account.findOneAndUpdate(
-      { agencia: agencia, conta: conta, name: name },
+      { agencia: agencia, conta: conta },
       { $inc: { balance: deposit } },
 
       {
@@ -113,13 +113,13 @@ const deposit = async (req, res) => {
 const withdraw = async (req, res) => {
   const agencia = req.params.agencia;
   const conta = req.params.conta;
-  const name = req.params.name;
-  const withdraw = req.body.withdraw - 1;
+  // const name = req.params.name;
+  const withdraw = req.body.withdraw + 1;
   // const newBalance=data.balance + deposit
 
   try {
     const data = await Account.findOneAndUpdate(
-      { agencia: agencia, conta: conta, name: name },
+      { agencia: agencia, conta: conta },
       { $inc: { balance: -withdraw } },
 
       {
@@ -285,7 +285,8 @@ const transferToPrivate = async (req, res) => {
         }
       ).sort({ balance: -1 });
     }
-    res.send(data);
+    const dataAgencyPrivate = await Account.find({ agencia: priva });
+    res.send(dataAgencyPrivate);
   } catch (error) {
     res.status(500).send('Erro ao buscar todos os podcasts' + error);
   }

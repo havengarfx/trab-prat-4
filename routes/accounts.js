@@ -14,9 +14,9 @@ app.put('/:id', accountController.update);
 
 app.delete('/:id', accountController.remove);
 
-app.put('/deposit/:agencia/:conta/:name', accountController.deposit);
+app.put('/deposit/:agencia/:conta', accountController.deposit);
 
-app.put('/withdraw/:agencia/:conta/:name', accountController.withdraw);
+app.put('/withdraw/:agencia/:conta', accountController.withdraw);
 
 app.get('/balance/:agencia/:conta', accountController.balance);
 

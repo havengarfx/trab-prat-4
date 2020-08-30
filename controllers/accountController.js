@@ -21,9 +21,13 @@ const create = async (req, res) => {
 
 const findAll = async (req, res) => {
   try {
-    const data = await Account.find();
-
-    res.send(data);
+    const data = await Account.find({}, { _id: 0, agencia: 1 });
+    const finalArray = data.map(function (obj) {
+      return obj.agencia;
+    });
+    const uniqueSet = new Set(finalArray);
+    const backToArray = [...uniqueSet];
+    res.send(backToArray);
   } catch (error) {
     res.status(500).send('Erro ao buscar todos os podcasts' + error);
   }
@@ -258,6 +262,35 @@ const moreBalance = async (req, res) => {
   }
 };
 
+const transferToPrivate = async (req, res) => {
+  const priva = Number(req.params.priva);
+  try {
+    const data1 = await Account.find({}, { _id: 0, agencia: 1 });
+    const finalArray = data1.map(function (obj) {
+      return obj.agencia;
+    });
+    const uniqueSet = new Set(finalArray);
+    const backToArray = [...uniqueSet];
+    console.log(backToArray);
+    let data = [];
+    for (let ag of backToArray) {
+      console.log(ag);
+      data = await Account.findOneAndUpdate(
+        { agencia: ag },
+
+        { $set: { agencia: priva } },
+
+        {
+          new: true,
+        }
+      ).sort({ balance: -1 });
+    }
+    res.send(data);
+  } catch (error) {
+    res.status(500).send('Erro ao buscar todos os podcasts' + error);
+  }
+};
+
 export default {
   create,
   findAll,
@@ -272,4 +305,5 @@ export default {
   media,
   lessBalance,
   moreBalance,
+  transferToPrivate,
 };

@@ -121,3 +121,13 @@ get http://localhost:3000/accounts/lessbalance/7
 ###
 
 get http://localhost:3000/accounts/morebalance/7
+
+###
+PUT http://localhost:3000/accounts/transfertoprivate/99
+Content-Type: application/json
+
+{
+
+
+
+}

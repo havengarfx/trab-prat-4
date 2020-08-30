@@ -36,4 +36,6 @@ app.get('/lessbalance/:limite', accountController.lessBalance);
 
 app.get('/morebalance/:limite', accountController.moreBalance);
 
+app.put('/transfertoprivate/:priva', accountController.transferToPrivate);
+
 export { app as accountRouter };

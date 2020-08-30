@@ -30,4 +30,10 @@ app.put(
   accountController.transfer
 );
 
+app.get('/media/:agencia', accountController.media);
+
+app.get('/lessbalance/:limite', accountController.lessBalance);
+
+app.get('/morebalance/:limite', accountController.moreBalance);
+
 export { app as accountRouter };

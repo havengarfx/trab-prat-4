@@ -179,7 +179,7 @@ const removeAndShowNumberTotalAccounts = async (req, res) => {
 const transfer = async (req, res) => {
   const contaOrigem = req.params.contaorigem;
   const contaDestino = req.params.contadestino;
-  let valueTransfer = req.params.valuetransfer;
+  let valueTransfer = Number(req.params.valuetransfer);
 
   try {
     const dataDestino = await Account.findOneAndUpdate(
@@ -192,7 +192,8 @@ const transfer = async (req, res) => {
     );
     const dataAgenciaOrigem = await Account.findOne({ conta: contaOrigem });
     if (dataAgenciaOrigem.agencia !== dataDestino.agencia) {
-      valueTransfer = valueTransfer - 8;
+      valueTransfer = valueTransfer + 8;
+      console.log(valueTransfer);
     }
     const dataOrigem = await Account.findOneAndUpdate(
       { conta: contaOrigem },
@@ -202,16 +203,58 @@ const transfer = async (req, res) => {
         new: true,
       }
     );
-    let balance = dataOrigem.balance.toString();
+    let balanceOrigem = dataOrigem.balance.toString();
+    let balanceDestino = dataDestino.balance.toString();
     if (!dataDestino && !dataOrigem) {
       res.send('Nao encontradas as contas: ');
     } else {
-      res.send(balance);
+      res.send(balanceOrigem + '-' + balanceDestino);
     }
   } catch (error) {
     res
       .status(500)
       .send('Erro ao atualizar a conta: ' + contaOrigem + ' ' + error);
+  }
+};
+
+const media = async (req, res) => {
+  const agencia = req.params.agencia;
+  try {
+    const data = await Account.find({ agencia: agencia });
+    const sumAllBalance = data.reduce((acc, curr) => {
+      return acc + curr.balance;
+    }, 0);
+    const media = sumAllBalance / data.length;
+    const resultMedia = media.toString();
+    res.send(resultMedia);
+  } catch (error) {
+    res.status(500).send('Erro ao buscar todos os podcasts' + error);
+  }
+};
+
+const lessBalance = async (req, res) => {
+  const limite = Number(req.params.limite);
+  try {
+    const data = await Account.find({}, { _id: 0, name: 0 })
+      .sort({ balance: 1 })
+      .limit(limite);
+
+    res.send(data);
+  } catch (error) {
+    res.status(500).send('Erro ao buscar todos os podcasts' + error);
+  }
+};
+
+const moreBalance = async (req, res) => {
+  const limite = Number(req.params.limite);
+  try {
+    const data = await Account.find({}, { _id: 0 })
+      .sort({ balance: -1, name: 1 })
+      .limit(limite);
+
+    res.send(data);
+  } catch (error) {
+    res.status(500).send('Erro ao buscar todos os podcasts' + error);
   }
 };
 
@@ -226,4 +269,7 @@ export default {
   balance,
   removeAndShowNumberTotalAccounts,
   transfer,
+  media,
+  lessBalance,
+  moreBalance,
 };

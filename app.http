@@ -113,3 +113,11 @@ Content-Type: application/json
 
 
 }
+###
+get http://localhost:3000/accounts/media/25
+
+###
+get http://localhost:3000/accounts/lessbalance/7
+###
+
+get http://localhost:3000/accounts/morebalance/7

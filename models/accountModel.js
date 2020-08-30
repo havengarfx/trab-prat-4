@@ -15,7 +15,7 @@ export default (mongoose) => {
     balance: {
       type: Number,
       required: true,
-      // min: 0,
+      min: 0,
       // //Valida se a nota inserida e' menor que zero
       // validate(value) {
       //   if (value < 0) throw new Error('Valor negativo para nota');

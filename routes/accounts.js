@@ -20,6 +20,14 @@ app.put('/withdraw/:agencia/:conta/:name', accountController.withdraw);
 
 app.get('/balance/:agencia/:conta', accountController.balance);
 
-app.delete('/removeandshownumberaccounts/:agencia/:conta', accountController.removeAndShowNumberTotalAccounts);
+app.delete(
+  '/removeandshownumberaccounts/:agencia/:conta',
+  accountController.removeAndShowNumberTotalAccounts
+);
+
+app.put(
+  '/transfer/:contaorigem/:contadestino/:valuetransfer',
+  accountController.transfer
+);
 
 export { app as accountRouter };

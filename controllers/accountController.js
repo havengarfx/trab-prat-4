@@ -176,6 +176,45 @@ const removeAndShowNumberTotalAccounts = async (req, res) => {
   }
 };
 
+const transfer = async (req, res) => {
+  const contaOrigem = req.params.contaorigem;
+  const contaDestino = req.params.contadestino;
+  let valueTransfer = req.params.valuetransfer;
+
+  try {
+    const dataDestino = await Account.findOneAndUpdate(
+      { conta: contaDestino },
+      { $inc: { balance: valueTransfer } },
+
+      {
+        new: true,
+      }
+    );
+    const dataAgenciaOrigem = await Account.findOne({ conta: contaOrigem });
+    if (dataAgenciaOrigem.agencia !== dataDestino.agencia) {
+      valueTransfer = valueTransfer - 8;
+    }
+    const dataOrigem = await Account.findOneAndUpdate(
+      { conta: contaOrigem },
+      { $inc: { balance: -valueTransfer } },
+
+      {
+        new: true,
+      }
+    );
+    let balance = dataOrigem.balance.toString();
+    if (!dataDestino && !dataOrigem) {
+      res.send('Nao encontradas as contas: ');
+    } else {
+      res.send(balance);
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send('Erro ao atualizar a conta: ' + contaOrigem + ' ' + error);
+  }
+};
+
 export default {
   create,
   findAll,
@@ -186,4 +225,5 @@ export default {
   withdraw,
   balance,
   removeAndShowNumberTotalAccounts,
+  transfer,
 };

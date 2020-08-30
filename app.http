@@ -52,10 +52,10 @@ POST http://localhost:3000/accounts
 Content-Type: application/json
 
 {
-"agencia":7,
-"conta": 7,
-"name" : "Pedro",
-"balance": 10
+"agencia":8,
+"conta": 8,
+"name" : "Paula",
+"balance": 200
 
 }
 ###
@@ -85,7 +85,7 @@ Content-Type: application/json
 
 {
 
-"deposit": 40
+"deposit": 200
 
 }
 ###
@@ -102,4 +102,14 @@ Content-Type: application/json
 get http://localhost:3000/accounts/balance/7/7
 ###
 
-DELETE http://localhost:3000/accounts/removeandshownumberaccounts/7/7
+DELETE http://localhost:3000/accounts/removeandshownumberaccounts/7/8
+
+###
+PUT http://localhost:3000/accounts/transfer/7/8/50
+Content-Type: application/json
+
+{
+
+
+
+}
